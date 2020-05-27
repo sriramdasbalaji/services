@@ -1,0 +1,13 @@
+using System.IO;
+using System;
+using System.Text;
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Hello, World!");
+        
+       var token = Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", "", "tgzmsv4v5isacc2bt3i2quevveanorhi4gpx6c2yu37bq7prdooa")));
+       Console.WriteLine(token);
+    }
+}
