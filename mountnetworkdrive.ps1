@@ -7,6 +7,18 @@ if ($connectTestResult.TcpTestSucceeded) {
 } else {
     Write-Error -Message "Unable to reach the Azure storage account via port 445. Check to make sure your organization or ISP is not blocking port 445, or use Azure P2S VPN, Azure S2S VPN, or Express Route to tunnel SMB traffic over a different port."
 }
+
+#download and configure agent
+wget https://vstsagentpackage.azureedge.net/agent/2.169.1/vsts-agent-win-x64-2.169.1.zip
+cd C:\
+mkdir azselfagent
+cd azselfagent
+Add-Type -AssemblyName System.IO.Compression.FileSystem ; [System.IO.Compression.ZipFile]::ExtractToDirectory("$HOME\Downloads\vsts-agent-win-x64-2.169.1.zip", "$PWD")
+.\config.cmd --unattended --url "https://dev.azure.com/sriramdasbalaji" --auth pat --token "4w3zyd6oiji6irv22f6ff6xxqrxq6vjkuxlvp2u2pfcx2hl3o7ka" --pool "CanarysAgentPool" --agent $env:computername --runAsService
+
+Stop-Transcript
+exit 0
+
 # navigate to attached drive and create folder with machine name
 Z:
 mkdir $env:computername
